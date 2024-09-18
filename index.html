@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phi Oscillator Synth with Effects</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Phi Oscillator Synth - Wavefolder, Bitcrusher, Granular, and Reverb</h1>
+
+    <!-- Controls for Oscillator 1 -->
+    <div class="oscillator-container">
+        <h2>Oscillator 1</h2>
+        <button id="startButton1">Start Oscillator 1</button>
+        <button id="stopButton1">Stop Oscillator 1</button>
+        <div class="slider-container">
+            <label for="frequencySlider1">Frequency:</label>
+            <input type="range" id="frequencySlider1" min="20" max="2000" value="440">
+        </div>
+        <div class="slider-container">
+            <label for="phaseDistortionSlider1">Phase Distortion:</label>
+            <input type="range" id="phaseDistortionSlider1" min="0" max="5" step="0.01" value="0.5">
+        </div>
+        <div class="slider-container">
+            <label for="harmonicIntensitySlider1">Harmonic Intensity:</label>
+            <input type="range" id="harmonicIntensitySlider1" min="0" max="2" step="0.01" value="0.5">
+        </div>
+        <div class="slider-container">
+            <label for="fractalDepthSlider1">Fractal Depth:</label>
+            <input type="range" id="fractalDepthSlider1" min="1" max="10" step="1" value="3">
+        </div>
+        <div class="slider-container">
+            <label for="cutoffSlider1">Cutoff Frequency:</label>
+            <input type="range" id="cutoffSlider1" min="20" max="20000" value="2000">
+        </div>
+        <div class="slider-container">
+            <label for="resonanceSlider1">Resonance:</label>
+            <input type="range" id="resonanceSlider1" min="0" max="20" step="0.1" value="1">
+        </div>
+    </div>
+
+    <!-- Wavefolder and Bitcrusher Controls -->
+    <div class="wavefolder-bitcrusher-container">
+        <h2>Wavefolder and Bitcrusher Controls</h2>
+        <div class="slider-container">
+            <label for="foldAmountSlider">Fold Amount:</label>
+            <input type="range" id="foldAmountSlider" min="0" max="5" step="0.01" value="1">
+        </div>
+        <div class="slider-container">
+            <label for="bitDepthSlider">Bit Depth:</label>
+            <input type="range" id="bitDepthSlider" min="1" max="16" step="1" value="8">
+        </div>
+        <div class="slider-container">
+            <label for="sampleRateReductionSlider">Sample Rate Reduction:</label>
+            <input type="range" id="sampleRateReductionSlider" min="1" max="100" step="1" value="1">
+        </div>
+    </div>
+
+    <!-- Reverb Controls -->
+    <div class="reverb-container">
+        <h2>Reverb Controls</h2>
+        <button id="toggleReverbButton">Toggle Reverb</button>
+        <div class="slider-container">
+            <label for="reverbMixSlider">Reverb Mix:</label>
+            <input type="range" id="reverbMixSlider" min="0" max="1" step="0.01" value="0.5">
+        </div>
+        <div class="slider-container">
+            <label for="reverbLengthSlider">Reverb Length:</label>
+            <input type="range" id="reverbLengthSlider" min="0.1" max="5" step="0.1" value="2">
+        </div>
+    </div>
+
+    <!-- Granular Effect Controls -->
+    <div class="granular-container">
+        <h2>Granular Effect Controls</h2>
+        <div class="slider-container">
+            <label for="grainSizeSlider">Grain Size:</label>
+            <input type="range" id="grainSizeSlider" min="0.01" max="0.5" step="0.01" value="0.1">
+        </div>
+        <div class="slider-container">
+            <label for="grainDensitySlider">Grain Density:</label>
+            <input type="range" id="grainDensitySlider" min="0.1" max="1" step="0.01" value="0.5">
+        </div>
+        <div class="slider-container">
+            <label for="grainRandomizationSlider">Grain Randomization:</label>
+            <input type="range" id="grainRandomizationSlider" min="0" max="1" step="0.01" value="0.5">
+        </div>
+    </div>
+
+    <!-- Pitch Shifter Controls -->
+    <div class="pitchshifter-container">
+        <h2>Pitch Shifter Controls</h2>
+        <div class="slider-container">
+            <label for="pitchShiftAmountSlider">Pitch Shift Amount:</label>
+            <input type="range" id="pitchShiftAmountSlider" min="-12" max="12" step="1" value="0">
+        </div>
+        <div class="slider-container">
+            <label for="pitchShiftFeedbackSlider">Pitch Shift Feedback:</label>
+            <input type="range" id="pitchShiftFeedbackSlider" min="0" max="0.95" step="0.05" value="0.5">
+        </div>
+    </div>
+
+    <script src="synth.js"></script>
+</body>
+</html>
