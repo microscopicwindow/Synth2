@@ -21,6 +21,37 @@ const phi = (1 + Math.sqrt(5)) / 2; // Golden ratio
 const masterGain = audioContext.createGain();
 masterGain.gain.value = 0.8;
 
+// Reverb mix (dry and wet) setup
+const dryGain = audioContext.createGain();
+const wetGain = audioContext.createGain();
+dryGain.gain.value = 1;
+wetGain.gain.value = 0.5;
+
+// Define convolver (reverb)
+const convolver = audioContext.createConvolver();
+let reverbEnabled = false;
+
+// Function to create an impulse response for the reverb effect
+function createImpulseResponse(length) {
+    const lengthInSamples = audioContext.sampleRate * length;
+    const impulse = audioContext.createBuffer(2, lengthInSamples, audioContext.sampleRate); // Stereo buffer
+    for (let channel = 0; channel < impulse.numberOfChannels; channel++) {
+        const channelData = impulse.getChannelData(channel);
+        for (let i = 0; i < lengthInSamples; i++) {
+            channelData[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / lengthInSamples, 2); // Exponential decay
+        }
+    }
+    convolver.buffer = impulse;
+}
+
+// Set initial impulse response length for reverb
+createImpulseResponse(2);
+
+// Properly connect dry and wet reverb mix to the master gain
+masterGain.connect(dryGain).connect(audioContext.destination); // Dry path directly to destination
+masterGain.connect(wetGain).connect(convolver); // Wet path through convolver
+convolver.connect(audioContext.destination); // Convolver output to destination
+
 // MIDI Access and Handler Setup
 function onMIDISuccess(midiAccess) {
     console.log('MIDI Access obtained');
@@ -104,6 +135,7 @@ function startOscillator(index) {
         channelCountMode: 'explicit',
     });
 
+    // Connect the oscillator to its filter and then to the master gain
     oscillators[index].port.postMessage({
         frequency: params[index].frequency,
         phaseDistortion: params[index].phaseDistortion,
@@ -111,7 +143,9 @@ function startOscillator(index) {
         fractalDepth: params[index].fractalDepth,
     });
 
+    // Ensure that each oscillator is connected to its corresponding filter and then to the master gain
     oscillators[index].connect(params[index].filter);
+    params[index].filter.connect(masterGain);
     isRunning[index] = true;
 }
 
@@ -173,5 +207,4 @@ async function setupAudioWorklets() {
 
 setupAudioWorklets();
 
-// Other functions remain unchanged for controls and reverb, granular, pitch shifter setup
-// ...
+// Other functions for effect controls remain unchanged...
